@@ -1,6 +1,9 @@
 怎么使用？
 ---
-这个脚本是配合抓包工具 mitmproxy 使用的， 不会使用建议可以参考这篇博文
+这个脚本是配合抓包工具 mitmproxy 使用的， 现在默认有这样一样个请求、返回示例
+
+请求值：会根据header里的头的timestamp来进行加密，用 AES-CBC-PKCS5padding 来加密
+返回值：也是如此
 
 安装 mitmproxy
 
