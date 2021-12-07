@@ -32,7 +32,8 @@ class ModifyRequestAndResponse:
             timestamp = flow.request.headers.get("timestamp")
             json_data = json.loads(content)
             json_data['msg'] = base64.b64decode(json_data['msg']).decode("utf-8")
-            json_data['content'] = json.loads(decrypt(timestamp, json_data['content']))
+            if json_data['ret'] == 1:
+                json_data['content'] = json.loads(decrypt(timestamp, json_data['content']))
             result = json.dumps(json_data)
             ctx.log.info("json %s:" % json_data)
             ctx.log.info("result %s:" % result)

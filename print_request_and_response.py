@@ -29,7 +29,8 @@ class PrintRequestAndResponse:
             content = flow.response.get_content()
             timestamp = flow.request.headers.get("timestamp")
             json_data = json.loads(content)
-            json_data['content'] = json.loads(decrypt(timestamp, json_data['content']))
+            if json_data['ret'] == 1:
+                json_data['content'] = json.loads(decrypt(timestamp, json_data['content']))
             json_data['msg'] = base64.b64decode(json_data['msg']).decode("utf-8")
             result = json.dumps(json_data)
             ctx.log.warn("response : %s" % result)
