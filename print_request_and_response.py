@@ -1,3 +1,6 @@
+# -*- coding:utf-8 -*-
+# !usr/bin/python3
+
 import base64
 import mitmproxy.http
 from mitmproxy import ctx
@@ -29,6 +32,7 @@ class PrintRequestAndResponse:
             content = flow.response.get_content()
             timestamp = flow.request.headers.get("timestamp")
             json_data = json.loads(content)
+            ctx.log.warn("json_data : %s" % json_data['content'])
             json_data['content'] = json.loads(decrypt(timestamp, json_data['content']))
             json_data['msg'] = base64.b64decode(json_data['msg']).decode("utf-8")
             result = json.dumps(json_data)
