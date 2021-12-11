@@ -4,6 +4,7 @@
 import modify_request_and_response
 import print_request_and_response
 import add_request_and_response, api_v2_request_response
+import base64
 
 addons = [
     add_request_and_response.AddRequestAndResponse(),
@@ -11,3 +12,4 @@ addons = [
     # print_request_and_response.PrintRequestAndResponse()
     # modify_request_and_response.ModifyRequestAndResponse()
 ]
+

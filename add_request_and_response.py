@@ -5,6 +5,7 @@ import base64
 import mitmproxy.http
 from mitmproxy import ctx
 import json
+
 from decrypt_encrypt_util import decrypt
 
 class AddRequestAndResponse:
@@ -34,7 +35,9 @@ class AddRequestAndResponse:
             temp_content_json = content_json
             # 拼接解密以后的数据
             if 'msg' in temp_content_json:
-                temp_content_json['msg'] = base64.b64decode(content_json['msg']).decode("utf-8")
+                # json.dumps(content_json).encode('utf-8').decode('unicode_escape'))
+                # json.dumps(content_json).encode('utf-8').decode('unicode_escape'))
+                temp_content_json['msg'] = base64.b64decode(content_json['msg']).decode('utf-8')
             if 'content' in temp_content_json:
                 temp_content_json['content'] = json.loads(decrypt(timestamp, content_json['content']))
             # 设置解密之后的数据
