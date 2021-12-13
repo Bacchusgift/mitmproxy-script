@@ -22,19 +22,21 @@ path_list = [
     "/noncore/redirect"
 ]
 
+
 # 是否需要解密
 def need_decrypt(url) -> bool:
     if 'api/v2' in url:
         return True
     return False
 
+
 # 是否需要access_token加密
 def need_access_token_encrypt(path) -> bool:
     for temp_path in path_list:
         if temp_path in path:
             return False
-            break
     return True
+
 
 class AddApiV2RequestAndResponse:
 
@@ -64,7 +66,6 @@ class AddApiV2RequestAndResponse:
                 ctx.log.warn("%s的请求数据是: %s" % (flow.request.url, json.dumps(content_json)))
                 flow.request.headers = header_json
 
-
     @staticmethod
     def response(flow: mitmproxy.http.HTTPFlow):
         if need_decrypt(flow.request.url):
@@ -73,6 +74,7 @@ class AddApiV2RequestAndResponse:
             content_str = flow.response.get_content().decode("utf-8")
             timestamp = request_header_json.get("timestamp")
             content_json = json.loads(decrypt(timestamp, content_str))
-            header_json.setdefault("response_content_decrypt", json.dumps(content_json).encode('utf-8').decode('unicode_escape'))
+            header_json.setdefault("response_content_decrypt",
+                                   json.dumps(content_json).encode('utf-8').decode('unicode_escape'))
             ctx.log.warn("%s的响应数据是: %s" % (flow.request.url, json.dumps(content_json)))
             flow.response.headers = header_json
