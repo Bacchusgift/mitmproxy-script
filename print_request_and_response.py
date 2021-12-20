@@ -1,3 +1,6 @@
+# -*- coding:utf-8 -*-
+# !usr/bin/python3
+
 import base64
 import mitmproxy.http
 from mitmproxy import ctx
